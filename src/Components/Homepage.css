@@ -215,6 +215,21 @@ section {
     }
 }
 
+/* Start information blocks */
+
+.chatText {
+    display: flex;
+}
+
+.chatImage {
+    width: 75px;
+    margin-right: 14px;
+    margin: 5px;
+}
+
+.mainWrap {
+    width: 100%;
+}
 
 .chatBubble {
     background-color: #222222;
@@ -241,22 +256,9 @@ section {
     margin-right: 15px;
 }
 
-.chatText {
-    display: flex;
-}
-
-.mainWrap {
-    width: 100%;
-}
-
 .textInput {
     margin: 8px;
     font-size: 16px;
     padding: 12px 15px;
 }
 
-.chatImage {
-    width: 75px;
-    margin-right: 14px;
-    margin: 5px;
-}
