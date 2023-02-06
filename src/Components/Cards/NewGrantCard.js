@@ -1,16 +1,17 @@
 import "./NewGrantCard.css";
 
-function NewGrantCard(newGrantProposal) {
+function NewGrantCard(props) {
     return (
 
         <div className="NewGrantGrid">
             <div className="NewGrantItem1 NewGrantItems">
                 <p>Recipient: </p>
-                <input 
+                <input
                     className="newGrantRecipient"
                     type="text"
+                    value={props.newGrant.recipient}
                     // defaultValue="Please enter proposed recipient..."
-                    onChange={(e) => newGrantProposal.recipient(e.target.value)}
+                    onChange={(e) => props.setNewGrant({ ...props.newGrant, recipient: e.target.value })}
                 />
             </div>
             <div className="NewGrantItem2 NewGrantItems">
@@ -19,11 +20,11 @@ function NewGrantCard(newGrantProposal) {
                     className="newGrantDescription"
                     type="text"
                     // defaultValue="Please enter the description/information about the new proposed recipient..."
-                    onChange={(e) => newGrantProposal.description(e.target.value)}
+                    onChange={(e) => props.setNewGrant({ ...props.newGrant, description: e.target.value })}
                 />
             </div>
             <div className="submitButton">
-                <button key="submitButton" className="header-cta"><a onClick={null}>Submit</a></button>
+                <button key="submitButton" className="header-cta"><a onClick={props.sendNewGrant}>Submit</a></button>
             </div>
         </div>
 

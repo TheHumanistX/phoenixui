@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
 import Homepage from './Components/Homepage.js';
 import Mint from './Components/Mint.js';
@@ -39,7 +39,7 @@ function App() {
       <header>
         <nav>
           <div className="logo">
-            <h1><a href="#">GrandPa's Chat</a></h1>
+            <h1><a href="#">GrandPa's Grants DAO</a></h1>
           </div>
 
           <ul>
