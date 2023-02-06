@@ -31,7 +31,7 @@
     grid-column: 9/11;
     grid-row: 1/7;
     padding: 5px;
-    width: 187px;
+    /* width: 187px; */
 }
 
 .ActiveItem3>div {

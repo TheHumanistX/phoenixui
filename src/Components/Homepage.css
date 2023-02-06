@@ -147,8 +147,9 @@ section {
 .hero .header-cta {
     border: 2px solid #EE811A;
     background: #EE811A;
-    padding: 8px 150px;
-    margin: 1px;
+    padding: 8px 100px;
+    margin: 10px;
+
 }
 
 .header-cta a {
