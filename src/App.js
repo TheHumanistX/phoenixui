@@ -44,7 +44,7 @@ function App() {
 
           <ul>
             <li><a href="./">Home</a></li>
-            <li className="nav-cta"><a onclick={connect} href="">Connect</a></li>
+            <li className="nav-cta"><a onClick={connect} href="">Connect</a></li>
           </ul>
         </nav>
       </header>

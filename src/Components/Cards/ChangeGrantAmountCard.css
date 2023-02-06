@@ -1,0 +1,32 @@
+/* .ChangeGrantAmountGrid {
+    display: grid;
+    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px;
+    
+    margin: 20px;
+}
+
+.ChangeGrantAmountItems {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 1.5px;
+}
+
+.ChangeGrantAmountItem1 {
+    background-color: rgb(56, 54, 54);
+    grid-column:1/10;
+}
+
+.ChangeGrantAmountItem2 {
+    background-color: rgb(56, 54, 54);
+    grid-column: 1/10;
+    grid-row: 2/4;
+} */
+
+.changeAmountDescription {
+    resize: horizontal;
+    width: 400px;
+    height: 200px;
+}
