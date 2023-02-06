@@ -1,8 +1,12 @@
 import React from "react";
-import {ethers} from "ethers";
-import {useEffect, useState} from "react";
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
 import moment from "moment";
-import Chat from "./Chat.js";
+import ActiveCard from "./ActiveCard.js";
+import SucceededCard from "./SucceededCard.js";
+import PendingCard from "./PendingCard.js";
+import FailedCard from "./FailedCard.js";
+import ExecutedCard from "./ExecutedCard.js";
 import "./Homepage.css";
 import Mint from "./Mint.js";
 import MintABI from "./MintABI.json";
@@ -53,13 +57,13 @@ function Homepage(props) {
         const numberOfNFTsHeld = await contract.balanceOf(currentAddress);
 
         setNFTlist([]);
-        
+
         for (var i = 0; i < numberOfNFTsHeld; i++) {
             const currentNFT = await contract.tokenOfOwnerByIndex(currentAddress, i);
             console.log("NFT Held Id: " + currentNFT.toNumber());
             setNFTlist(old => [...old, currentNFT]);
         }
-        
+
         setAllChats([]);
 
         for (var i = starting; i > starting - displayPerPage; i--) {
@@ -77,13 +81,13 @@ function Homepage(props) {
         getMessages();
     }, [pagination]);
 
-    
+
     return (
         <div>
 
             <section>
                 <div className="hero">
-                    <button key="Back-Button" className="header-cta"><a onClick={() => noMoreMessages ? null : setPagination((old) => old + 1) } href="#" >Older</a></button>
+                    <button key="Back-Button" className="header-cta"><a onClick={() => noMoreMessages ? null : setPagination((old) => old + 1)} href="#" >Older</a></button>
                     <button key="Forward-Button" className="header-cta"><a onClick={() => pagination > 0 ? setPagination((old) => old - 1) : null} href="#" >Newer
                     </a></button>
                     <div className="chatMessage">
@@ -91,7 +95,7 @@ function Homepage(props) {
                             const date = item[4].toString();
 
                             return (
-                                <Chat key={item[0]} text={item[3]} image="https://yt3.ggpht.com/ytc/AMLnZu-2DrkobCQd6ri63wO9SuMFGyTbyMhD5kQ6Up2N=s900-c-k-c0x00ffffff-no-rj" data={date} sender={item[1]} />
+                                <ExecutedCard key={item[0]} text={item[3]} image="https://yt3.ggpht.com/ytc/AMLnZu-2DrkobCQd6ri63wO9SuMFGyTbyMhD5kQ6Up2N=s900-c-k-c0x00ffffff-no-rj" data={date} sender={item[1]} />
 
                             )
                         })}
@@ -106,7 +110,7 @@ function Homepage(props) {
                             ))}
 
                         </select> */}
-                        <MemoizedNFTList NFTlist = {NFTlist} setNFT = {setNFT} />
+                        <MemoizedNFTList NFTlist={NFTlist} setNFT={setNFT} />
 
                         <input
                             className="textInput"
@@ -119,7 +123,7 @@ function Homepage(props) {
                 </div>
             </section >
         </div >
-        
+
     );
 }
 

@@ -1,0 +1,45 @@
+.FailedGrid {
+    display: grid;
+    grid-template-rows: 100px 100px 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px;
+    /* box-shadow: 5px 5px 10px #fff; */
+    margin: 20px;
+}
+
+.FailedItems {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 1.5px;
+}
+
+.FailedItem1 {
+    background-color: rgb(56, 54, 54);
+    grid-column: 2/5;
+}
+
+.FailedItem2 {
+    background-color: white;
+    color: #000000;
+    grid-column: 5/9;
+}
+
+.FailedItem3 {
+    background-color: white;
+    color: #000000;
+    grid-column: 9/11;
+    grid-row: 1/6;
+    padding-top: 60px;
+}
+
+.FailedItem3>div {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+.FailedItem4 {
+    background-color: rgb(56, 54, 54);
+    grid-column: 2/9;
+    grid-row: 2/6;
+}
