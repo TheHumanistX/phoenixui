@@ -21,7 +21,7 @@ function Homepage(props) {
     const [AllCards, setAllCards] = useState([]);
     const [pagination, setPagination] = useState(0);
     const [submission, setSubmission] = useState(0);
-    const [noMoreMessages, setNoMoreMessages] = useState(false);
+    const [NoMoreCards, setNoMoreCards] = useState(false);
 
 
     const timeConversion = (timeStampBigNumber) => {
@@ -51,35 +51,63 @@ function Homepage(props) {
         // const tryToSendAmountChange = await contract.addNewAmountChange(changeGrantAmount);
     }
 
+
+    /*
+    
+    For replacing the below `getChats()`
+
+    */
+
     const getCards = async () => {
+
+        // const provider = new etheres.providers.Web3Provider(window.ethereum);
+        // await provider.send("eth_requestAccounts");
+        // const signer = provider.getSigner();
+        // const contract = new ethers.Contract("CONTRACT ADDRESS", ABI, signer);
+
+
+    }
+
+    /*
+    
+    End replacement function
+
+    */
+
+
+    const getChats = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        console.log("Provider: " + provider);
+        // console.log("Provider: " + provider);
         await provider.send("eth_requestAccounts");
         const signer = provider.getSigner();
-        console.log("Signer: " + signer);
+        // console.log("Signer: " + signer);
         const contract = new ethers.Contract("0x35F7f83F7d153e9c4A2E9B07e1302D46E259b5AD", MintABI, signer);
-        console.log("Contract: " + contract);
+        // console.log("Contract: " + contract);
 
-        const totalMessages = await contract.totalMessages();
-        setNoMoreMessages(Math.floor(totalMessages / ((pagination + 1) * 10)) <= 0 ? true : false)
+        //*** Change `contract.totalMessages()` to `contract.totalCards()` ***
+        const totalCards = await contract.totalMessages();
+        setNoMoreCards(Math.floor(totalCards / ((pagination + 1) * 10)) <= 0 ? true : false)
         const displayPerPage = 3;
-        const starting = totalMessages - (displayPerPage * pagination) - 1;
+        const starting = totalCards - (displayPerPage * pagination) - 1;
 
         setAllCards([]);
 
         for (var i = starting; i > starting - displayPerPage; i--) {
             if (i >= 0) {
-                const currentMessage = await contract.Messages(i);
-                const currentMessageArray = [...currentMessage];
-                currentMessageArray[4] = timeConversion(currentMessageArray[4]);
-                setAllCards(prevChat => [...prevChat, currentMessageArray]);
+                //*** Change `contract.Messages()` to `contract.getChats()` ***
+                const currentCard = await contract.Messages(i);
+                const currentCardArray = [...currentCard];
+                // *** THIS IS GOOD FOR TIME, DON'T ERASE ***
+                currentCardArray[4] = timeConversion(currentCardArray[4]);
+                // *** THIS IS GOOD FOR TIME, DON'T ERASE ***
+                setAllCards(prevCard => [...prevCard, currentCardArray]);
             }
         }
 
     }
 
     useEffect(() => {
-        getCards();
+        getChats();
     }, [pagination]);
 
     return (
@@ -87,7 +115,7 @@ function Homepage(props) {
 
             <section>
                 <div className="hero">
-                    <button key="Back-Button" className="header-cta"><a onClick={() => noMoreMessages ? null : setPagination((old) => old + 1)} href="#" >Older</a></button>
+                    <button key="Back-Button" className="header-cta"><a onClick={() => NoMoreCards ? null : setPagination((old) => old + 1)} href="#" >Older</a></button>
                     <button key="Forward-Button" className="header-cta"><a onClick={() => pagination > 0 ? setPagination((old) => old - 1) : null} href="#" >Newer
                     </a></button>
                     <div className="chatMessage">
