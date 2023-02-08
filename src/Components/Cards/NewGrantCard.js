@@ -11,7 +11,7 @@ function NewGrantCard(props) {
                     type="text"
                     value={props.newGrant.recipient}
                     // defaultValue="Please enter proposed recipient..."
-                    onChange={(e) => props.setNewGrant({ ...props.newGrant, recipient: e.target.value })}
+                    onChange={(e) => props.setNewGrantRecipient(e.target.value)}
                 />
             </div>
             <div className="NewGrantItem2 NewGrantItems">
@@ -20,7 +20,7 @@ function NewGrantCard(props) {
                     className="newGrantDescription"
                     type="text"
                     // defaultValue="Please enter the description/information about the new proposed recipient..."
-                    onChange={(e) => props.setNewGrant({ ...props.newGrant, description: e.target.value })}
+                    onChange={(e) => props.setNewGrantDescription(e.target.value)}
                 />
             </div>
             <div className="submitButton">

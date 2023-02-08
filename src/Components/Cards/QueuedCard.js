@@ -1,29 +1,28 @@
-import "./PendingCard.css";
+import "./QueuedCard.css";
 
-function PendingCard(props) {
+function QueuedCard(props) {
     return (
 
-        <div className="PendingGrid">
-            <div className="PendingItem1 PendingItems">
+        <div className="QueuedGrid">
+            <div className="QueuedItem1 QueuedItems">
                 <p>ID: {props.id}</p>
             </div>
-            <div className="PendingItem2 PendingItems">
+            <div className="QueuedItem2 QueuedItems">
                 <p>State: {props.propState}</p>
             </div>
-            <div className="PendingItem3 PendingItems">
-                <div className="VotingBegins">
-                    <p>Voting Begins: </p>
-                    <p>{props.voteBegins}</p>
+            <div className="QueuedItem3 QueuedItems">
+                <div className="for">
+                    <p>For: {props.votesFor}</p>
+                </div>
+                <div className="against">
+                    <p>Against: {props.votesAgainst}</p>
                 </div>
                 <div className="votingEnds">
-                    <p>Voting Ends: </p>
+                    <p>Vote Ended: </p>
                     <p>{props.voteEnds}</p>
                 </div>
-                <div className="Quorum">
-                    <p>Quorum: {props.quorum}</p>
-                </div>
             </div>
-            <div className="PendingItem4 PendingItems">
+            <div className="QueuedItem4 QueuedItems">
                 {props.propType == "IssueGrant" && 
                     <div>
                         <p>Proposal Type: </p>
@@ -58,9 +57,14 @@ function PendingCard(props) {
                     </div>
                 }
             </div>
+            <div className="QueuedItem5 QueuedItems">
+                <p>
+                    <a onClick={() => props.executeProposal(props.id)} href="#">Execute</a>
+                </p>
+            </div>
         </div>
 
     );
 }
 
-export default PendingCard;
+export default QueuedCard;

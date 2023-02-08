@@ -1,11 +1,11 @@
-.SucceededGrid {
+.SDEGrid {
     display: grid;
-    grid-template-rows: 60px repeat(4, 100px) 60px;
+    grid-template-rows: 60px repeat(4, 100px);
     grid-template-columns: repeat(11, 100px);
     margin: 20px;
 }
 
-.SucceededItems {
+.SDEItems {
     padding: 15px;
     font-size: 30px;
     text-align: center;
@@ -13,37 +13,32 @@
     margin: 1.5px;
 }
 
-.SucceededItem1 {
+.SDEItem1 {
     background-color: rgb(56, 54, 54);
     grid-column: 2/5;
 }
 
-.SucceededItem2 {
+.SDEItem2 {
     background-color: white;
     color: #000000;
     grid-column: 5/9;
 }
 
-.SucceededItem3 {
+.SDEItem3 {
     background-color: white;
     color: #000000;
     grid-column: 9/11;
-    grid-row: 1/7;
-    padding-top: 80px;
+    grid-row: 1/6;
+    padding-top: 65px;
 }
 
-.SucceededItem3>div {
+.SDEItem3>div {
     padding-top: 35px;
     padding-bottom: 35px;
 }
 
-.SucceededItem4 {
+.SDEItem4 {
     background-color: rgb(56, 54, 54);
     grid-column: 2/9;
     grid-row: 2/6;
-}
-
-.SucceededItem5 {
-    background-color: #ee811a;
-    grid-column: 2/9;
 }

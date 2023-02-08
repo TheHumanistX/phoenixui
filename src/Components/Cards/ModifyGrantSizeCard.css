@@ -1,4 +1,4 @@
-/* .ChangeGrantAmountGrid {
+/* .ModifyGrantSizeGrid {
     display: grid;
     grid-template-rows: 100px 100px 100px;
     grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px;
@@ -6,7 +6,7 @@
     margin: 20px;
 }
 
-.ChangeGrantAmountItems {
+.ModifyGrantSizeItems {
     padding: 20px;
     font-size: 30px;
     text-align: center;
@@ -14,12 +14,12 @@
     margin: 1.5px;
 }
 
-.ChangeGrantAmountItem1 {
+.ModifyGrantSizeItem1 {
     background-color: rgb(56, 54, 54);
     grid-column:1/10;
 }
 
-.ChangeGrantAmountItem2 {
+.ModifyGrantSizeItem2 {
     background-color: rgb(56, 54, 54);
     grid-column: 1/10;
     grid-row: 2/4;

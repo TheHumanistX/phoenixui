@@ -34,10 +34,10 @@ interface IGovernor {
     function state(uint256 propID) external view returns(ProposalState);
 
     // Submits new grant recipient Proposal
-    function submitNewGrant(address recipient) external;
+    function submitNewGrant(address recipient, string memory description) external;
 
     // Submits new Proposal to change grant amount
-    function submitNewAmountChange(uint256 newGrantAmount) external;
+    function submitNewAmountChange(uint256 newGrantAmount, string memory description) external;
 
     // Submits a vote for a Proposal
     function voteFor(uint256 propID) external;

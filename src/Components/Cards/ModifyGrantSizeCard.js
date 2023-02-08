@@ -1,29 +1,28 @@
-import "./ChangeGrantAmountCard.css";
+import "./ModifyGrantSizeCard.css";
 
-function ChangeGrantAmountCard(props) {
+function ModifyGrantSizeCard(props) {
     function submitChangeAmount () {
         props.sendAmountChange();
-        props.newProposalToPending();
 
     }
 
     return (
 
-        <div className="ChangeGrantAmountGrid">
-            <div className="ChangeGrantAmountItem1 ChangeGrantAmountItems">
+        <div className="ModifyGrantSizeGrid">
+            <div className="ModifyGrantSizeItem1 ModifyGrantSizeItems">
                 <p>Amount: </p>
                 <input
                     className="changeAmountInput"
                     type="text"
-                    onChange={(e) => props.setChangeGrantAmount({ ...props.changeGrantAmount, amount: e.target.value + " ETH"})}
+                    onChange={(e) => props.setModifyGrantSizeAmount(e.target.value)}
                 />
             </div>
-            <div className="ChangeGrantAmountItem2 ChangeGrantAmountItems">
+            <div className="ModifyGrantSizeItem2 ModifyGrantSizeItems">
                 <p>Description: </p>
                 <textarea
                     className="changeAmountDescription"
                     type="text"
-                    onChange={(e) => props.setChangeGrantAmount({ ...props.changeGrantAmount, description: e.target.value })}
+                    onChange={(e) => props.setModifyGrantSizeDescription(e.target.value)}
                 />
             </div>
             <div className="submitButton">
@@ -34,4 +33,4 @@ function ChangeGrantAmountCard(props) {
     );
 }
 
-export default ChangeGrantAmountCard;
+export default ModifyGrantSizeCard;

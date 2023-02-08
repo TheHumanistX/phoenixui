@@ -1,30 +1,29 @@
-import "./PendingCard.css";
+import "./SDECard.css";
 
-function PendingCard(props) {
+function SDECard(props) {
     return (
 
-        <div className="PendingGrid">
-            <div className="PendingItem1 PendingItems">
+        <div className="SDEGrid">
+            <div className="SDEItem1 SDEItems">
                 <p>ID: {props.id}</p>
             </div>
-            <div className="PendingItem2 PendingItems">
+            <div className="SDEItem2 SDEItems">
                 <p>State: {props.propState}</p>
             </div>
-            <div className="PendingItem3 PendingItems">
-                <div className="VotingBegins">
-                    <p>Voting Begins: </p>
-                    <p>{props.voteBegins}</p>
+            <div className="SDEItem3 SDEItems">
+                <div className="For">
+                    <p>For: {props.votesFor}</p>
                 </div>
-                <div className="votingEnds">
-                    <p>Voting Ends: </p>
+                <div className="Against">
+                    <p>Against: {props.votesAgainst}</p>
+                </div>
+                <div className="VoteEnded">
+                    <p>Voting Ended: </p>
                     <p>{props.voteEnds}</p>
                 </div>
-                <div className="Quorum">
-                    <p>Quorum: {props.quorum}</p>
-                </div>
             </div>
-            <div className="PendingItem4 PendingItems">
-                {props.propType == "IssueGrant" && 
+            <div className="SDEItem4 SDEItems">
+            {props.propType == "IssueGrant" && 
                     <div>
                         <p>Proposal Type: </p>
                         <p>Issue New Grant</p>
@@ -56,11 +55,11 @@ function PendingCard(props) {
                         <p>Description: </p>
                         <p>{props.description}></p>
                     </div>
-                }
+                }             
             </div>
         </div>
 
     );
 }
 
-export default PendingCard;
+export default SDECard;
