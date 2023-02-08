@@ -2,7 +2,6 @@
 pragma solidity ^0.8.17;
 
 contract Governance {
-
     enum ProposalState {
         Unassigned, // 0
         Pending, // 1
@@ -49,7 +48,7 @@ contract Governance {
     }
 
     /// @notice See IGovernance
-    function state(uint256 propID) public view returns(ProposalState){
+    function state(uint256 propID) public view returns (ProposalState) {
         ProposalData storage proposal = proposals[propID];
         ProposalState propState = proposal.propState;
 
@@ -66,7 +65,7 @@ contract Governance {
         uint256 voteEnds = proposal.voteEnds;
 
         // If the voting end date is in the future, then voting is still active
-        if (voteEnds >= block.timestamp)  return ProposalState.Active;
+        if (voteEnds >= block.timestamp) return ProposalState.Active;
 
         // If none of the above is true, then voting is over and this Proposal is queued for execution
         return ProposalState.Queued;
@@ -75,12 +74,20 @@ contract Governance {
     /// @dev Determines if number of votes submitted were sufficient to achieve quorum
     // TO DO: Use getQuorum() instead of quorum
     // TO DO: Instead of counting votes submitted, count number of DAO members who voted
-    function _quorumReached(uint256 votesFor, uint256 votesAgainst) private view returns(bool quorumReached){
+    function _quorumReached(uint256 votesFor, uint256 votesAgainst)
+        private
+        view
+        returns (bool quorumReached)
+    {
         quorumReached = (votesFor + votesAgainst >= quorum);
     }
 
     /// @dev Applies vote success formula to determine if voting ratio led to successful outcome
-    function _voteSucceeded(uint256 votesFor, uint256 votesAgainst) private pure returns(bool voteSucceeded){
+    function _voteSucceeded(uint256 votesFor, uint256 votesAgainst)
+        private
+        pure
+        returns (bool voteSucceeded)
+    {
         voteSucceeded = votesFor > votesAgainst; // 50% + 1 majority
         /**
          ALTERNATIVE SYSTEMS:
@@ -96,18 +103,18 @@ contract Governance {
     }
 
     /// @dev Tallies up all votes to determine if Proposal is Succeeded, Defeated, or Expired
-    function _tallyVotes(uint256 propID) private view returns(ProposalState){
+    function _tallyVotes(uint256 propID) private view returns (ProposalState) {
         ProposalData storage proposal = proposals[propID];
 
         uint256 votesFor = proposal.votesFor;
         uint256 votesAgainst = proposal.votesAgainst;
         bool quorumReached = _quorumReached(votesFor, votesAgainst);
 
-        if(quorumReached == false) return ProposalState.Expired;
-        else if(_voteSucceeded(votesFor, votesAgainst)) return ProposalState.Succeeded;
+        if (quorumReached == false) return ProposalState.Expired;
+        else if (_voteSucceeded(votesFor, votesAgainst))
+            return ProposalState.Succeeded;
         else return ProposalState.Defeated;
     }
-
 
     //*** PROPOSE ***\\
     // TO DO: Create modifier to check if caller is a DAO member, apply to member-restricted functions
@@ -148,15 +155,22 @@ contract Governance {
     function submitNewAmountChange(uint256 newGrantAmount) public {
         require(newGrantAmount > 0, "Invalid amount");
 
-        _submitProposal(ProposalType.ModifyGrantSize, address(0), 0, newGrantAmount);
+        _submitProposal(
+            ProposalType.ModifyGrantSize,
+            address(0),
+            0,
+            newGrantAmount
+        );
     }
-
 
     //*** VOTE ***\\
     /// @dev Performs all checks required for caller to vote
     modifier voteChecks(uint256 propID) {
         require(state(propID) == ProposalState.Active, "Proposal inactive");
-        require(memberHasVoted[msg.sender][propID] == false, "Member already voted");
+        require(
+            memberHasVoted[msg.sender][propID] == false,
+            "Member already voted"
+        );
         _;
     }
 
@@ -165,20 +179,19 @@ contract Governance {
     function _submitVote(uint256 propID, bool votedFor) private {
         ProposalData storage proposal = proposals[propID];
 
-        if(votedFor) proposal.votesFor++;
+        if (votedFor) proposal.votesFor++;
         else proposal.votesAgainst++;
 
         memberHasVoted[msg.sender][propID] = true;
     }
 
-    function voteFor(uint256 propID) public voteChecks(propID){
+    function voteFor(uint256 propID) public voteChecks(propID) {
         _submitVote(propID, true);
     }
 
-    function voteAgainst(uint256 propID) public voteChecks(propID){
+    function voteAgainst(uint256 propID) public voteChecks(propID) {
         _submitVote(propID, false);
     }
-
 
     //*** EXECUTE ***\\
     /// @notice Executes a Proposal when it is in the Queued state
@@ -186,19 +199,22 @@ contract Governance {
         ProposalData storage proposal = proposals[propID];
         ProposalState propState = state(propID);
 
-        require(propState == ProposalState.Queued, "Proposal not queued for execution");
+        require(
+            propState == ProposalState.Queued,
+            "Proposal not queued for execution"
+        );
 
         propState = _tallyVotes(propID);
         ProposalType propType = proposal.propType;
 
-        if(propState == ProposalState.Succeeded){
-            if(propType == ProposalType.IssueGrant){
+        if (propState == ProposalState.Succeeded) {
+            if (propType == ProposalType.IssueGrant) {
                 _issueGrant(propID);
-            } else if(propType == ProposalType.ModifyGrantSize){
+            } else if (propType == ProposalType.ModifyGrantSize) {
                 _modifyGrantSize(propID);
-            }  
+            }
         } else {
-            if(propType == ProposalType.IssueGrant){
+            if (propType == ProposalType.IssueGrant) {
                 availableETH += proposal.ethGrant;
             }
         }
@@ -210,9 +226,11 @@ contract Governance {
     function _issueGrant(uint256 propID) private {
         ProposalData storage proposal = proposals[propID];
 
-        (bool success, ) = proposal.recipient.call{value: proposal.ethGrant}("");
+        (bool success, ) = proposal.recipient.call{value: proposal.ethGrant}(
+            ""
+        );
 
-        if(!success){
+        if (!success) {
             availableETH += proposal.ethGrant;
         }
     }
@@ -224,7 +242,6 @@ contract Governance {
         grantAmount = proposal.newETHGrant;
     }
 
-
     /// @dev Called by execute() to update the on-chain state of a Proposal
     function _setState(uint256 propID) private {
         ProposalData storage proposal = proposals[propID];
@@ -232,59 +249,64 @@ contract Governance {
         uint256 votesAgainst = proposal.votesAgainst;
         bool quorumReached = _quorumReached(votesFor, votesAgainst);
 
-        if(quorumReached == false) proposal.propState = ProposalState.Expired;
-        else if(_voteSucceeded(votesFor, votesAgainst)) proposal.propState = ProposalState.Succeeded;
+        if (quorumReached == false) proposal.propState = ProposalState.Expired;
+        else if (_voteSucceeded(votesFor, votesAgainst))
+            proposal.propState = ProposalState.Succeeded;
         else proposal.propState = ProposalState.Defeated;
     }
-
 
     //*** GETTER FUNCTIONS ***\\
     /// @notice See IGovernance for descriptions of getter functions
 
-    function getTotalProposals() public view returns(uint256 totalProposals){
+    function getTotalProposals() public view returns (uint256 totalProposals) {
         totalProposals = proposals.length;
     }
 
-    function getProposal(uint256 propID) public view returns(ProposalData memory proposal){
+    function getProposal(uint256 propID)
+        public
+        view
+        returns (ProposalData memory proposal)
+    {
         proposal = proposals[propID];
         proposal.propState = state(propID);
 
         return proposal;
     }
 
-
-    function getTimestamp() public view returns(uint256 timestamp) {
+    function getTimestamp() public view returns (uint256 timestamp) {
         return block.timestamp;
     }
 
-    function getReviewTimeRemaining(uint256 propID) public view returns(uint256 timeRemaining){
+    function getReviewTimeRemaining(uint256 propID)
+        public
+        view
+        returns (uint256 timeRemaining)
+    {
         ProposalData storage proposal = proposals[propID];
 
-        if(state(propID) == ProposalState.Pending) return proposal.voteBegins - getTimestamp();
+        if (state(propID) == ProposalState.Pending)
+            return proposal.voteBegins - getTimestamp();
         else return 0;
     }
 
-    function getVoteTimeRemaining(uint256 propID) public view returns(uint256 timeRemaining){
+    function getVoteTimeRemaining(uint256 propID)
+        public
+        view
+        returns (uint256 timeRemaining)
+    {
         ProposalData storage proposal = proposals[propID];
 
-        if(state(propID) == ProposalState.Active) return proposal.voteEnds - getTimestamp();
+        if (state(propID) == ProposalState.Active)
+            return proposal.voteEnds - getTimestamp();
         else return 0;
     }
 
-    // TO DO: Call Membership contract to get total DAO members, determine quorum requirement 
-    function getQuorum() public view returns(uint256) {
+    // TO DO: Call Membership contract to get total DAO members, determine quorum requirement
+    function getQuorum() public view returns (uint256) {
         return quorum;
     }
 
-    function getGrantAmount() public view returns(uint256){
+    function getGrantAmount() public view returns (uint256) {
         return grantAmount;
     }
-
-
 }
-
-
-
-
-
-

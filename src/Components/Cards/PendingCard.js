@@ -8,7 +8,7 @@ function PendingCard(props) {
                 <p>ID: {props.id}</p>
             </div>
             <div className="PendingItem2 PendingItems">
-                <p>State: {props.propState}</p>
+                <p>State: Pending</p>
             </div>
             <div className="PendingItem3 PendingItems">
                 <div className="VotingBegins">
@@ -24,22 +24,22 @@ function PendingCard(props) {
                 </div>
             </div>
             <div className="PendingItem4 PendingItems">
-                {props.propType == "IssueGrant" && 
+                {props.propType == "IssueGrant" &&
                     <div>
                         <p>Proposal Type: </p>
                         <p>Issue New Grant</p>
-                    </div>  
-                    
+                    </div>
+
                 }
-                {props.propType == "ModifyGrantSize" && 
+                {props.propType == "ModifyGrantSize" &&
                     <div>
                         <p>Proposal Type: </p>
                         <p>Modify Grant Amount</p>
-                    </div>  
-                    
+                    </div>
+
                 }
                 <br />
-                {props.propType == "IssueGrant" && 
+                {props.propType == "IssueGrant" &&
                     <div>
                         <p>Recipient: </p>
                         <p>{props.recipient}</p>
@@ -48,13 +48,13 @@ function PendingCard(props) {
                         <p>{props.description}</p>
                     </div>
                 }
-                {props.propType == "ModifyGrantSize" && 
+                {props.propType == "ModifyGrantSize" &&
                     <div>
                         <p>New Amount: </p>
                         <p>{props.newETHGrant}</p>
                         <br />
                         <p>Description: </p>
-                        <p>{props.description}></p>
+                        <p>{props.description}</p>
                     </div>
                 }
             </div>

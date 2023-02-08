@@ -8,7 +8,18 @@ function SDECard(props) {
                 <p>ID: {props.id}</p>
             </div>
             <div className="SDEItem2 SDEItems">
-                <p>State: {props.propState}</p>
+                <p>State: {
+                    props.propState == "ProposalState.Succeeded"
+                        ?
+                        "Succeeded"
+                        :
+                        props.propState == "ProposalState.Defeated"
+                            ?
+                            "Defeated"
+                            :
+                            "Expired"
+                }
+                </p>
             </div>
             <div className="SDEItem3 SDEItems">
                 <div className="For">
@@ -23,22 +34,22 @@ function SDECard(props) {
                 </div>
             </div>
             <div className="SDEItem4 SDEItems">
-            {props.propType == "IssueGrant" && 
+                {props.propType == "IssueGrant" &&
                     <div>
                         <p>Proposal Type: </p>
                         <p>Issue New Grant</p>
-                    </div>  
-                    
+                    </div>
+
                 }
-                {props.propType == "ModifyGrantSize" && 
+                {props.propType == "ModifyGrantSize" &&
                     <div>
                         <p>Proposal Type: </p>
                         <p>Modify Grant Amount</p>
-                    </div>  
-                    
+                    </div>
+
                 }
                 <br />
-                {props.propType == "IssueGrant" && 
+                {props.propType == "IssueGrant" &&
                     <div>
                         <p>Recipient: </p>
                         <p>{props.recipient}</p>
@@ -47,15 +58,15 @@ function SDECard(props) {
                         <p>{props.description}</p>
                     </div>
                 }
-                {props.propType == "ModifyGrantSize" && 
+                {props.propType == "ModifyGrantSize" &&
                     <div>
                         <p>New Amount: </p>
                         <p>{props.newETHGrant}</p>
                         <br />
                         <p>Description: </p>
-                        <p>{props.description}></p>
+                        <p>{props.description}</p>
                     </div>
-                }             
+                }
             </div>
         </div>
 

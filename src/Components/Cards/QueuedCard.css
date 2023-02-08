@@ -1,7 +1,7 @@
 .QueuedGrid {
     display: grid;
     grid-template-rows: 60px repeat(4, 100px) 60px;
-    grid-template-columns: repeat(11, 100px);
+    grid-template-columns: repeat(3, 100px) 150px 50px repeat(6, 100px);
     margin: 20px;
 }
 

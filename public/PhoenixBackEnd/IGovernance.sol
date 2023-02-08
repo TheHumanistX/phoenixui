@@ -28,16 +28,27 @@ interface IGovernor {
         uint256 ethGrant; // Amount of ETH grant for IssueGrant
         uint256 newETHGrant; // New ETH grant amount for ModifyGrantSize
     }
+    mapping(address => mapping(uint256 => bool)) public memberHasVoted;
 
     //*** CORE FUNCTIONS ***\\
     // Returns the current state of a Proposal -- getProposal uses state to determine Proposal state
-    function state(uint256 propID) external view returns(ProposalState);
+    function state(uint256 propID) external view returns (ProposalState);
 
     // Submits new grant recipient Proposal
-    function submitNewGrant(address recipient, string memory description) external;
+    function submitNewGrant(address recipient, string memory description)
+        external;
+
+    // Determines if a member has voted.
+    function memberHasVoted(address account, uint256 propID)
+        external
+        view
+        returns (bool);
 
     // Submits new Proposal to change grant amount
-    function submitNewAmountChange(uint256 newGrantAmount, string memory description) external;
+    function submitNewAmountChange(
+        uint256 newGrantAmount,
+        string memory description
+    ) external;
 
     // Submits a vote for a Proposal
     function voteFor(uint256 propID) external;
@@ -50,26 +61,35 @@ interface IGovernor {
 
     //*** GETTERS AND HELPERS ***\\
     // Use to begin array loop from most recent proposals first
-    function getTotalProposals() external view returns(uint256 totalProposals);
+    function getTotalProposals() external view returns (uint256 totalProposals);
 
     // This will return each Proposal with its dynamically calculated state
-    function getProposal(uint256 propID) external view returns(ProposalData memory proposal);
+    function getProposal(uint256 propID)
+        external
+        view
+        returns (ProposalData memory proposal);
 
     // Returns seconds left on Propose stage, may or may not be useful
-    function getReviewTimeRemaining(uint256 propID) external view returns(uint256 timeRemaining);
+    function getReviewTimeRemaining(uint256 propID)
+        external
+        view
+        returns (uint256 timeRemaining);
 
     // Returns seconds left on Vote stage, may or may not be useful
-    function getVoteTimeRemaining(uint256 propID) external view returns(uint256 timeRemaining);
+    function getVoteTimeRemaining(uint256 propID)
+        external
+        view
+        returns (uint256 timeRemaining);
 
     // Gets the quorum threshold
-    function getQuorum() external view returns(uint256);
-    
+    function getQuorum() external view returns (uint256);
+
     // Gets the current grant amount
-    function getGrantAmount() external view returns(uint256);
+    function getGrantAmount() external view returns (uint256);
 
     // Gets the amount of ETH available for new proposals
-    function availableETH() external view returns(uint256);
+    function availableETH() external view returns (uint256);
 
     // Gets the RPC node's timestamp
-    function getTimestamp() external view returns(uint256 timestamp);
+    function getTimestamp() external view returns (uint256 timestamp);
 }
