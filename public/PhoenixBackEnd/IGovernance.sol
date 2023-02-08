@@ -22,11 +22,14 @@ interface IGovernor {
         uint256 voteEnds; // Timestamp when Vote stage ends
         uint256 votesFor; // Number of votes for this Proposal
         uint256 votesAgainst; // Number of votes against this Proposal
+        uint256 memberVoteCount; // Number of members who voted
         ProposalState propState; // Store on-chain state of this Proposal
         ProposalType propType; // Proposal type -- Determines Execution stage's function call
         address recipient; // Recipient of ETH grant for IssueGrant
         uint256 ethGrant; // Amount of ETH grant for IssueGrant
         uint256 newETHGrant; // New ETH grant amount for ModifyGrantSize
+        string description; // Description of Proposal
+        
     }
     mapping(address => mapping(uint256 => bool)) public memberHasVoted;
 

@@ -8,6 +8,7 @@ import PendingCard from "./Cards/PendingCard.js";
 import SDECard from "./Cards/SDECard.js";
 import ModifyGrantSizeCard from "./Cards/ModifyGrantSizeCard.js";
 import NewGrantCard from "./Cards/NewGrantCard.js";
+import ABI from "./GovernanceABI.json";
 import "./Homepage.css";
 
 
@@ -27,6 +28,7 @@ function Homepage(props) {
     const [ActiveProposalId, setActiveProposalId] = useState(null);
     const [activateToggle, setActivateToggle] = useState(true);
     const [quorum, setQuorum] = useState(250);
+    const [availableETH, setAvailableETH] = useState(0);
 
     // Below are any temp state or other variables for pre-contract testing
 
@@ -167,7 +169,7 @@ function Homepage(props) {
     const sendNewGrant = async () => {
         // const provider = new ethers.providers.Web3Provider(window.ethereum);
         // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("Contract Address", ABI, signer);
+        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
 
 
         console.log("New Grant Recipient: " + newGrantRecipient);
@@ -180,7 +182,7 @@ function Homepage(props) {
     const sendAmountChange = async () => {
         // const provider = new ethers.providers.Web3Provider(window.ethereum);
         // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("Contract Address", ABI, signer);
+        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
         console.log("New Proposed Amount: " + modifyGrantSizeAmount);
         console.log("New Amount Description: " + modifyGrantSizeDescription);
 
@@ -190,16 +192,18 @@ function Homepage(props) {
     // Used to retrieve all of the proposals from the smart contract and display them in the dApp
     const getCards = async () => {
 
-        // const provider = new etheres.providers.Web3Provider(window.ethereum);
-        // await provider.send("eth_requestAccounts");
-        // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("CONTRACT ADDRESS", ABI, signer);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts");
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
 
-        //const totalCards = await contract.getTotalProposals();
-        const totalCards = fakeCardsArray.length;
+        const totalCards = await contract.getTotalProposals();
+        // const totalCards = fakeCardsArray.length;
         console.log("fakeCardsArray Length: " + totalCards);
         const displayPerPage = 3;
-
+        const tempAvailableETH = await contract.availableETH();
+        const formattedAvailableEth = ethers.utils.formatEther(tempAvailableETH);
+        setAvailableETH(formattedAvailableEth);
 
         setNoMoreCards(totalCards == ((pagination + 1) * displayPerPage) ? true : Math.floor(totalCards / ((pagination + 1) * displayPerPage)) <= 0 ? true : false);
 
@@ -209,14 +213,27 @@ function Homepage(props) {
 
         setAllCards([]);
         console.log("Entering for() loop: ...")
+        const tempVar = starting - displayPerPage;
+        console.log("Starting - displayPerPage: " + tempVar);
         for (var i = starting; i > starting - displayPerPage && i >= 0; i--) {
-
-            const currentCard = fakeCardsArray[i];
-            // const currentCard = await contract.getProposal(i);
+            console.log("For() Loop Current i: " + i);
+            // const currentCard = fakeCardsArray[i];
+            const currentCard = await contract.getProposal(i);
+            let currentCardTempArray;
+            console.log("Current Card Array Length: " + currentCard.length);
+            for (var j = 0; j < currentCard.length; j++) {
+                if (j == 0 || j == 1 || j == 2 || j == 3 || j == 4 || j == 8 || j == 9) {
+                    console.log("Index: " + j + ": " + currentCard[j].toNumber());
+                    //currentCardTempArray[i] = currentCard[i].toNumber();
+                } else {                   
+                     console.log("Index: " + j + ": " + currentCard[j]);
+                    //currentCardTempArray[i] = currentCard[i];
+                }
+            }
             console.log("Current Whole Card Object: " + JSON.stringify(currentCard));
             console.log("Current Card i = " + i + ": " + currentCard.propState);
-            setAllCards(prevAllCards => [...prevAllCards, currentCard]);
-            console.log("allCards.length: " + allCards.length);
+            //setAllCards(prevAllCards => [...prevAllCards, currentCard]);
+            //console.log("allCards.length: " + allCards.length);
 
 
         }
@@ -234,7 +251,7 @@ function Homepage(props) {
         // const provider = new etheres.providers.Web3Provider(window.ethereum);
         // await provider.send("eth_requestAccounts");
         // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("CONTRACT ADDRESS", ABI, signer);
+        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
         // contract.voteFor(proposalId);
     }
 
@@ -247,7 +264,7 @@ function Homepage(props) {
         // const provider = new etheres.providers.Web3Provider(window.ethereum);
         // await provider.send("eth_requestAccounts");
         // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("CONTRACT ADDRESS", ABI, signer);
+        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
         // contract.voteAgainst(proposalId);
 
     }
@@ -257,6 +274,20 @@ function Homepage(props) {
         console.log("Executing Proposal " + proposalId + "!");
         fakeCardsArray[proposalId - 1].propState = "Expired";
         getCards();
+        // const provider = new etheres.providers.Web3Provider(window.ethereum);
+        // await provider.send("eth_requestAccounts");
+        // const signer = provider.getSigner();
+        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
+        // contract.execute(proposalId);
+    }
+
+    const getQuorum = async () => {
+        // const provider = new etheres.providers.Web3Provider(window.ethereum);
+        // await provider.send("eth_requestAccounts");
+        // const signer = provider.getSigner();
+        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
+        // const fetchedQuorum = contract.getQuorum();
+        // setQuorum(prevQuorum => fetchedQuorum);
     }
 
     useEffect(() => {
@@ -275,6 +306,7 @@ function Homepage(props) {
                     Coding in each stops the button from going past the last or first proposal
                      */}
                     <button key="Back-Button" className="header-cta"><a onClick={() => noMoreCards ? null : setPagination((old) => old + 1)} href="#" >Older</a></button>
+                    Available DAO Funds: {availableETH} ETH
                     <button key="Forward-Button" className="header-cta"><a onClick={() => pagination > 0 ? setPagination((old) => old - 1) : null} href="#" >Newer
                     </a></button>
                     <div className="cardPresentation">
