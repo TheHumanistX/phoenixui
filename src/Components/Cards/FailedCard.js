@@ -4,12 +4,23 @@ function FailedCard(props) {
     return (
 
         <div className="FailedGrid">
-            <div className="FailedItem1 FailedItems"><p>ID: </p></div>
-            <div className="FailedItem2 FailedItems"><p>State: </p></div>
+            <div className="FailedItem1 FailedItems">
+                <p>ID: {props.id}</p>
+            </div>
+            <div className="FailedItem2 FailedItems">
+                <p>State: {props.status}</p>
+            </div>
             <div className="FailedItem3 FailedItems">
-                <div className="For"><p>For: </p></div>
-                <div className="Against"><p>Against: </p></div>
-                <div className="VoteEnded"><p>Voting Ended: </p></div>
+                <div className="For">
+                    <p>For: {props.votesFor}</p>
+                </div>
+                <div className="Against">
+                    <p>Against: {props.votesAgainst}</p>
+                </div>
+                <div className="VoteEnded">
+                    <p>Voting Ended: </p>
+                    <p>{props.voteEnds}</p>
+                </div>
             </div>
             <div className="FailedItem4 FailedItems">
                 <p>PROPOSAL INFO OR GRANT CHANGE AMOUNT</p>

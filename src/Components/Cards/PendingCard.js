@@ -4,12 +4,24 @@ function PendingCard(props) {
     return (
 
         <div className="PendingGrid">
-            <div className="PendingItem1 PendingItems"><p>ID: </p></div>
-            <div className="PendingItem2 PendingItems"><p>State: </p></div>
+            <div className="PendingItem1 PendingItems">
+                <p>ID: {props.id}</p>
+            </div>
+            <div className="PendingItem2 PendingItems">
+                <p>State: {props.status}</p>
+            </div>
             <div className="PendingItem3 PendingItems">
-                <div className="VotingBegins"><p>Voting Begins: </p></div>
-                <div className="votingEnds"><p>Voting Ends: </p></div>
-                <div className="Quorum"><p>Quorum: </p></div>
+                <div className="VotingBegins">
+                    <p>Voting Begins: </p>
+                    <p>{props.voteBegins}</p>
+                </div>
+                <div className="votingEnds">
+                    <p>Voting Ends: </p>
+                    <p>{props.voteEnds}</p>
+                </div>
+                <div className="Quorum">
+                    <p>Quorum: {props.quorum}</p>
+                </div>
             </div>
             <div className="PendingItem4 PendingItems">
                 <p>PROPOSAL INFO OR GRANT CHANGE AMOUNT</p>

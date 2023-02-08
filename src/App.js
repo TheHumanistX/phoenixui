@@ -2,7 +2,7 @@ import logo from './logo.svg';
 // import './App.css';
 import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
 import Homepage from './Components/Homepage.js';
-import Mint from './Components/Mint.js';
+
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 
@@ -43,7 +43,6 @@ function App() {
           </div>
 
           <ul>
-            <li><a href="./">Home</a></li>
             <li className="nav-cta"><a onClick={connect} href="">Connect</a></li>
           </ul>
         </nav>
@@ -52,7 +51,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/Mint" element={<Mint />} />
+          
 
         </Routes>
 

@@ -1,6 +1,12 @@
 import "./ChangeGrantAmountCard.css";
 
 function ChangeGrantAmountCard(props) {
+    function submitChangeAmount () {
+        props.sendAmountChange();
+        props.newProposalToPending();
+
+    }
+
     return (
 
         <div className="ChangeGrantAmountGrid">
@@ -9,8 +15,7 @@ function ChangeGrantAmountCard(props) {
                 <input
                     className="changeAmountInput"
                     type="text"
-                    // defaultValue="Please enter proposed change amount..."
-                    onChange={(e) => props.setChangeGrantAmount({ ...props.changeGrantAmount, amount: e.target.value })}
+                    onChange={(e) => props.setChangeGrantAmount({ ...props.changeGrantAmount, amount: e.target.value + " ETH"})}
                 />
             </div>
             <div className="ChangeGrantAmountItem2 ChangeGrantAmountItems">
@@ -18,12 +23,11 @@ function ChangeGrantAmountCard(props) {
                 <textarea
                     className="changeAmountDescription"
                     type="text"
-                    // defaultValue="Please enter reason for proposed change amount..."
                     onChange={(e) => props.setChangeGrantAmount({ ...props.changeGrantAmount, description: e.target.value })}
                 />
             </div>
             <div className="submitButton">
-                <button key="submitButton" className="header-cta"><a onClick={props.sendAmountChange}>Submit</a></button>
+                <button key="submitButton" className="header-cta"><a onClick={submitChangeAmount}>Submit</a></button>
             </div>
         </div>
 
