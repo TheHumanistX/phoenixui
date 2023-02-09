@@ -28,6 +28,9 @@ function SDECard(props) {
                 <div className="Against">
                     <p>Against: {props.votesAgainst}</p>
                 </div>
+                <div className="MembersVoted">
+                    <p>Members Voted: {props.memberVoteCount}</p>
+                </div>
                 <div className="VoteEnded">
                     <p>Voting Ended: </p>
                     <p>{props.voteEnds}</p>

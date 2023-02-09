@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 
 function ActiveCard(props) {
-    const [addressHasVoted, setAddressHasVoted] = useState(true);
+    const [addressHasVoted, setAddressHasVoted] = useState(false);
 
     // const hasVoted = async () => {
     //     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -30,6 +30,9 @@ function ActiveCard(props) {
                 </div>
                 <div className="ActiveAgainst">
                     <p>Against: {props.votesAgainst}</p>
+                </div>
+                <div className="ActiveMembersVoted">
+                    <p>Members Voted: {props.memberVoteCount}</p>
                 </div>
                 <div className="ActiveQuorum">
                     <p>Quorum: {props.quorum}</p>
@@ -81,6 +84,7 @@ function ActiveCard(props) {
                     </p>
                     :
                     <p>
+                        {console.log("Active For Vote PropID: " + props.id)}
                         <a onClick={() => props.castVoteFor(props.id)} href="#">Vote For</a>
                     </p>
                 }

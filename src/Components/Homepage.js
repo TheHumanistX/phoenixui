@@ -27,7 +27,7 @@ function Homepage(props) {
     const [ActiveVote, setActiveVote] = useState(null);
     const [ActiveProposalId, setActiveProposalId] = useState(null);
     const [activateToggle, setActivateToggle] = useState(true);
-    const [quorum, setQuorum] = useState(250);
+    const [quorum, setQuorum] = useState(0);
     const [availableETH, setAvailableETH] = useState(0);
 
     // Below are any temp state or other variables for pre-contract testing
@@ -47,6 +47,7 @@ function Homepage(props) {
             recipient: "",
             ethGrant: "0.5 ETH",
             newETHGrant: "1 ETH",
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -60,6 +61,7 @@ function Homepage(props) {
             newETHGrant: "",
             votesFor: 310,
             votesAgainst: 12,
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -73,6 +75,7 @@ function Homepage(props) {
             newETHGrant: "4 ETH",
             votesFor: 89,
             votesAgainst: 211,
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -86,6 +89,7 @@ function Homepage(props) {
             newETHGrant: "",
             votesFor: 306,
             votesAgainst: 44,
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -99,6 +103,7 @@ function Homepage(props) {
             newETHGrant: "",
             votesFor: 223,
             votesAgainst: 25,
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -112,6 +117,7 @@ function Homepage(props) {
             newETHGrant: "1.5 ETH",
             votesFor: 180,
             votesAgainst: 60,
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -125,6 +131,7 @@ function Homepage(props) {
             newETHGrant: "2 ETH",
             votesFor: "",
             votesAgainst: "",
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -138,6 +145,7 @@ function Homepage(props) {
             newETHGrant: "",
             votesFor: 265,
             votesAgainst: 45,
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         },
         {
@@ -151,6 +159,7 @@ function Homepage(props) {
             newETHGrant: "",
             votesFor: 310,
             votesAgainst: 12,
+            memberVoteCount: 4,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
         }
 
@@ -199,7 +208,6 @@ function Homepage(props) {
 
         const totalCards = await contract.getTotalProposals();
         // const totalCards = fakeCardsArray.length;
-        console.log("fakeCardsArray Length: " + totalCards);
         const displayPerPage = 3;
         const tempAvailableETH = await contract.availableETH();
         const formattedAvailableEth = ethers.utils.formatEther(tempAvailableETH);
@@ -210,29 +218,29 @@ function Homepage(props) {
 
         const starting = totalCards - (displayPerPage * pagination) - 1;
         console.log("starting: " + starting);
-
+        getQuorum();
         setAllCards([]);
         console.log("Entering for() loop: ...")
         const tempVar = starting - displayPerPage;
-        console.log("Starting - displayPerPage: " + tempVar);
         for (var i = starting; i > starting - displayPerPage && i >= 0; i--) {
-            console.log("For() Loop Current i: " + i);
+
             // const currentCard = fakeCardsArray[i];
             const currentCard = await contract.getProposal(i);
             let currentCardTempArray;
-            console.log("Current Card Array Length: " + currentCard.length);
+            logProposal(currentCard, i);
             for (var j = 0; j < currentCard.length; j++) {
                 if (j == 0 || j == 1 || j == 2 || j == 3 || j == 4 || j == 8 || j == 9) {
                     console.log("Index: " + j + ": " + currentCard[j].toNumber());
                     //currentCardTempArray[i] = currentCard[i].toNumber();
-                } else {                   
-                     console.log("Index: " + j + ": " + currentCard[j]);
+                } else {
+                    console.log("Index: " + j + ": " + currentCard[j]);
                     //currentCardTempArray[i] = currentCard[i];
                 }
             }
             console.log("Current Whole Card Object: " + JSON.stringify(currentCard));
             console.log("Current Card i = " + i + ": " + currentCard.propState);
-            //setAllCards(prevAllCards => [...prevAllCards, currentCard]);
+            setAllCards(prevAllCards => [...prevAllCards, formatProposal(currentCard)]);
+            console.log("All Cards: " + allCards[1].propId);
             //console.log("allCards.length: " + allCards.length);
 
 
@@ -241,31 +249,87 @@ function Homepage(props) {
 
     }
 
+    const logProposal = (proposal, proposalId) => {
+        console.log(
+            "propId: " + proposalId + "\n",
+            "voteBegins: " + proposal[0].toNumber() + "\n",
+            "voteEnds: " + proposal[1].toNumber() + "\n",
+            "votesFor: " + proposal[2].toNumber() + "\n",
+            "votesAgainst: " + proposal[3].toNumber() + "\n",
+            "memberVoteCount: " + proposal[4].toNumber() + "\n",
+            "propState: " + returnPropState(proposal[5]) + "\n",
+            "propType: " + returnPropType(proposal[6]) + "\n",
+            "recipient: " + proposal[7] + "\n",
+            "ethGrant: " + ethers.utils.formatEther(proposal[8].toNumber()) + "\n",
+            "newETHGrant: " + ethers.utils.formatEther(proposal[9].toNumber()) + "\n",
+            "description: " + proposal[10]
+        )
+    }
+
+    const formatProposal = (proposal, proposalId) => {
+
+        return ({
+            propId: proposalId,
+            voteBegins: proposal[0].toNumber(),
+            voteEnds: proposal[1].toNumber(),
+            votesFor: proposal[2].toNumber(),
+            votesAgainst: proposal[3].toNumber(),
+            memberVoteCount: proposal[4].toNumber(),
+            propState: returnPropState(proposal[5]),
+            propType: returnPropType(proposal[6]),
+            recipient: proposal[7],
+            ethGrant: ethers.utils.formatEther(proposal[8].toNumber()),
+            newETHGrant: ethers.utils.formatEther(proposal[9].toNumber()) + "\n",
+            description: proposal[10]
+        })
+    }
+
+    const returnPropState = (propState) => {
+        propState = propState == 0 ? "Unassigned"
+            : propState == 1 ? "Pending"
+                : propState == 2 ? "Active"
+                    : propState == 3 ? "Queued"
+                        : propState == 4 ? "Defeated"
+                            : propState == 5 ? "Succeeded"
+                                : propState == 6 ? "Expired"
+                                    : "Uknown";
+        return propState;
+    }
+
+    const returnPropType = (propType) => {
+        propType = propType == 0 ? "IssueGrant"
+            : propType == 1 ? "ModifyGrantSize"
+                : "Unknown";
+        return propType;
+    }
+
     // Casts For vote 
     const castVoteFor = async (proposalId) => {
 
-        console.log("Voted for Proposal " + proposalId + "!");
-        fakeCardsArray[proposalId - 1].votesFor += 1;
-        console.log("Votes For: " + fakeCardsArray[proposalId - 1].votesFor)
-        getCards();
-        // const provider = new etheres.providers.Web3Provider(window.ethereum);
-        // await provider.send("eth_requestAccounts");
-        // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
-        // contract.voteFor(proposalId);
+        // console.log("Voted for Proposal " + proposalId + "!");
+        // fakeCardsArray[proposalId - 1].votesFor += 1;
+        // console.log("Votes For: " + fakeCardsArray[proposalId - 1].votesFor)
+        // getCards();
+        console.log("Vote For PropID: " + proposalId);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts");
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
+        contract.voteFor(proposalId);
     }
 
     // Casts Against Vote
     const castVoteAgainst = async (proposalId) => {
-        console.log("Voted against Proposal " + proposalId + "!");
-        fakeCardsArray[proposalId - 1].votesAgainst += 1;
-        console.log("Votes against: " + fakeCardsArray[proposalId - 1].votesAgainst);
-        getCards();
-        // const provider = new etheres.providers.Web3Provider(window.ethereum);
-        // await provider.send("eth_requestAccounts");
-        // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
-        // contract.voteAgainst(proposalId);
+        // console.log("Voted against Proposal " + proposalId + "!");
+        // fakeCardsArray[proposalId - 1].votesAgainst += 1;
+        // console.log("Votes against: " + fakeCardsArray[proposalId - 1].votesAgainst);
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts");
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
+        contract.voteAgainst(proposalId);
+
 
     }
 
@@ -274,7 +338,7 @@ function Homepage(props) {
         console.log("Executing Proposal " + proposalId + "!");
         fakeCardsArray[proposalId - 1].propState = "Expired";
         getCards();
-        // const provider = new etheres.providers.Web3Provider(window.ethereum);
+        // const provider = new ethers.providers.Web3Provider(window.ethereum);
         // await provider.send("eth_requestAccounts");
         // const signer = provider.getSigner();
         // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
@@ -282,12 +346,13 @@ function Homepage(props) {
     }
 
     const getQuorum = async () => {
-        // const provider = new etheres.providers.Web3Provider(window.ethereum);
-        // await provider.send("eth_requestAccounts");
-        // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
-        // const fetchedQuorum = contract.getQuorum();
-        // setQuorum(prevQuorum => fetchedQuorum);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
+        const fetchedQuorum = await contract.getQuorum();
+
+        setQuorum(prevQuorum => fetchedQuorum.toNumber());
+        console.log("Quorum: " + quorum);
     }
 
     useEffect(() => {
@@ -315,19 +380,19 @@ function Homepage(props) {
                         {allCards.map((item) => {
                             // Setting cardType for ternary to follow
                             const cardType =
-                                item.propState == "ProposalState.Active" ? "Active"
-                                    : item.propState == "ProposalState.Pending" ? "Pending"
-                                        : item.propState == "ProposalState.Succeeded" ? "Succeeded"
-                                            : item.propState == "ProposalState.Defeated" ? "Defeated"
-                                                : item.propState == "ProposalState.Expired" ? "Expired"
+                                item.propState == "Active" ? "Active"
+                                    : item.propState == "Pending" ? "Pending"
+                                        : item.propState == "Succeeded" ? "Succeeded"
+                                            : item.propState == "Defeated" ? "Defeated"
+                                                : item.propState == "Expired" ? "Expired"
                                                     : "Queued";
 
                             // return() for the .map function
                             return (
                                 // Calls ActiveCard component for active proposals
                                 cardType == "Active" ?
-                                    <ActiveCard key={item.id}
-                                        id={item.id}
+                                    <ActiveCard key={item.propId}
+                                        id={item.propId}
                                         propState={item.propState}
                                         recipient={item.recipient}
                                         propType={item.propType}
@@ -340,6 +405,7 @@ function Homepage(props) {
                                         castVoteFor={castVoteFor}
                                         castVoteAgainst={castVoteAgainst}
                                         description={item.description}
+                                        memberVoteCount={item.memberVoteCount}
                                     />
                                     :
                                     // Calls PendingCard component for pending proposals
@@ -386,6 +452,7 @@ function Homepage(props) {
                                                     ethGrant={item.ethGrant}
                                                     newETHGrant={item.newETHGrant}
                                                     description={item.description}
+                                                    memberVoteCount={item.memberVoteCount}
                                                 />
                                                 :
                                                 // Calls SDECard (SuccessfulDefeatedExpired) component for expired proposals
@@ -401,6 +468,7 @@ function Homepage(props) {
                                                         ethGrant={item.ethGrant}
                                                         newETHGrant={item.newETHGrant}
                                                         description={item.description}
+                                                        memberVoteCount={item.memberVoteCount}
                                                     />
                                                     :
                                                     // Calls SDECard (SuccessfulDefeatedExpired) component for successful proposals
@@ -415,6 +483,7 @@ function Homepage(props) {
                                                         ethGrant={item.ethGrant}
                                                         newETHGrant={item.newETHGrant}
                                                         description={item.description}
+                                                        memberVoteCount={item.memberVoteCount}
                                                     />
                             )
                         })}
