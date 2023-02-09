@@ -1,20 +1,24 @@
 import "./ActiveCard.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import ABI from "../GovernanceABI.json";
 
 function ActiveCard(props) {
     const [addressHasVoted, setAddressHasVoted] = useState(false);
 
-    // const hasVoted = async () => {
-    //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    //     const signer = provider.getSigner();
-    //     const contract = new ethers.Contract("CONTRACT ADDRESS", ABI, signer);
-    //     const currentAddress = signer.getAddress();
+    const hasVoted = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
+        const currentAddress = signer.getAddress();
 
-    //     const voteBoolReturn = contract.memberHasVote(currentAddress, props.id);
-    //     setAddressHasVoted(prevAddressHasVoted => voteBoolReturn);
-    // }
+        const voteBoolReturn = await contract.memberHasVoted(currentAddress, props.id);
+        setAddressHasVoted(prevAddressHasVoted => voteBoolReturn);
+    }
 
+    useEffect(() => {
+        hasVoted();
+    }, []);
     return (
 
         <div className="ActiveGrid">

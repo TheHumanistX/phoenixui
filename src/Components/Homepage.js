@@ -35,144 +35,144 @@ function Homepage(props) {
 
 
 
-    const [fakeCardsArray, setFakeCardsArray] = useState([
-        {
-            id: 1,
-            voteBegins: "October 29, 2022",
-            voteEnds: "December 29, 2022",
-            votesFor: 277,
-            votesAgainst: 73,
-            propState: "ProposalState.Succeeded",
-            propType: "ModifyGrantSize",
-            recipient: "",
-            ethGrant: "0.5 ETH",
-            newETHGrant: "1 ETH",
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 2,
-            propState: "ProposalState.Succeeded",
-            propType: "IssueGrant",
-            recipient: "Bill and Melinda Gates Foundation",
-            ethGrant: "1 ETH",
-            voteBegins: "November 17, 2023",
-            voteEnds: "January 17, 2023",
-            newETHGrant: "",
-            votesFor: 310,
-            votesAgainst: 12,
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 3,
-            propState: "ProposalState.Defeated",
-            propType: "ModifyGrantSize",
-            recipient: "",
-            ethGrant: "1 ETH",
-            voteBegins: "November 28, 2022",
-            voteEnds: "January 28, 2023",
-            newETHGrant: "4 ETH",
-            votesFor: 89,
-            votesAgainst: 211,
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 4,
-            propState: "ProposalState.Expired",
-            propType: "IssueGrant",
-            recipient: "The Web3 Foundation",
-            ethGrant: "1 ETH",
-            voteBegins: "November 30, 2022",
-            voteEnds: "January 30, 2023",
-            newETHGrant: "",
-            votesFor: 306,
-            votesAgainst: 44,
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 5,
-            propState: "ProposalState.Active",
-            propType: "IssueGrant",
-            recipient: "ETH Charity Protocol",
-            ethGrant: "1 ETH",
-            voteBegins: "",
-            voteEnds: "March 15, 2023",
-            newETHGrant: "",
-            votesFor: 223,
-            votesAgainst: 25,
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 6,
-            propState: "ProposalState.Defeated",
-            propType: "ModifyGrantSize",
-            recipient: "",
-            ethGrant: "1 ETH",
-            voteBegins: "February 17, 2023",
-            voteEnds: "April 17, 2023",
-            newETHGrant: "1.5 ETH",
-            votesFor: 180,
-            votesAgainst: 60,
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 7,
-            propState: "ProposalState.Pending",
-            propType: "ModifyGrantSize",
-            recipient: "",
-            ethGrant: "",
-            voteBegins: "February 20, 2023",
-            voteEnds: "April 20, 2023",
-            newETHGrant: "2 ETH",
-            votesFor: "",
-            votesAgainst: "",
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 8,
-            propState: "ProposalState.Active",
-            propType: "IssueGrant",
-            recipient: "Jon Doe Society",
-            ethGrant: "1 ETH",
-            voteBegins: "",
-            voteEnds: "April 25, 2023",
-            newETHGrant: "",
-            votesFor: 265,
-            votesAgainst: 45,
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        },
-        {
-            id: 9,
-            propState: "ProposalState.Queued",
-            propType: "IssueGrant",
-            recipient: "Bill and Melinda Gates Foundation",
-            ethGrant: "1 ETH",
-            voteBegins: "November 17, 2023",
-            voteEnds: "January 17, 2023",
-            newETHGrant: "",
-            votesFor: 310,
-            votesAgainst: 12,
-            memberVoteCount: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
-        }
+    // const [fakeCardsArray, setFakeCardsArray] = useState([
+    //     {
+    //         id: 1,
+    //         voteBegins: "October 29, 2022",
+    //         voteEnds: "December 29, 2022",
+    //         votesFor: 277,
+    //         votesAgainst: 73,
+    //         propState: "ProposalState.Succeeded",
+    //         propType: "ModifyGrantSize",
+    //         recipient: "",
+    //         ethGrant: "0.5 ETH",
+    //         newETHGrant: "1 ETH",
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 2,
+    //         propState: "ProposalState.Succeeded",
+    //         propType: "IssueGrant",
+    //         recipient: "Bill and Melinda Gates Foundation",
+    //         ethGrant: "1 ETH",
+    //         voteBegins: "November 17, 2023",
+    //         voteEnds: "January 17, 2023",
+    //         newETHGrant: "",
+    //         votesFor: 310,
+    //         votesAgainst: 12,
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 3,
+    //         propState: "ProposalState.Defeated",
+    //         propType: "ModifyGrantSize",
+    //         recipient: "",
+    //         ethGrant: "1 ETH",
+    //         voteBegins: "November 28, 2022",
+    //         voteEnds: "January 28, 2023",
+    //         newETHGrant: "4 ETH",
+    //         votesFor: 89,
+    //         votesAgainst: 211,
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 4,
+    //         propState: "ProposalState.Expired",
+    //         propType: "IssueGrant",
+    //         recipient: "The Web3 Foundation",
+    //         ethGrant: "1 ETH",
+    //         voteBegins: "November 30, 2022",
+    //         voteEnds: "January 30, 2023",
+    //         newETHGrant: "",
+    //         votesFor: 306,
+    //         votesAgainst: 44,
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 5,
+    //         propState: "ProposalState.Active",
+    //         propType: "IssueGrant",
+    //         recipient: "ETH Charity Protocol",
+    //         ethGrant: "1 ETH",
+    //         voteBegins: "",
+    //         voteEnds: "March 15, 2023",
+    //         newETHGrant: "",
+    //         votesFor: 223,
+    //         votesAgainst: 25,
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 6,
+    //         propState: "ProposalState.Defeated",
+    //         propType: "ModifyGrantSize",
+    //         recipient: "",
+    //         ethGrant: "1 ETH",
+    //         voteBegins: "February 17, 2023",
+    //         voteEnds: "April 17, 2023",
+    //         newETHGrant: "1.5 ETH",
+    //         votesFor: 180,
+    //         votesAgainst: 60,
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 7,
+    //         propState: "ProposalState.Pending",
+    //         propType: "ModifyGrantSize",
+    //         recipient: "",
+    //         ethGrant: "",
+    //         voteBegins: "February 20, 2023",
+    //         voteEnds: "April 20, 2023",
+    //         newETHGrant: "2 ETH",
+    //         votesFor: "",
+    //         votesAgainst: "",
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 8,
+    //         propState: "ProposalState.Active",
+    //         propType: "IssueGrant",
+    //         recipient: "Jon Doe Society",
+    //         ethGrant: "1 ETH",
+    //         voteBegins: "",
+    //         voteEnds: "April 25, 2023",
+    //         newETHGrant: "",
+    //         votesFor: 265,
+    //         votesAgainst: 45,
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     },
+    //     {
+    //         id: 9,
+    //         propState: "ProposalState.Queued",
+    //         propType: "IssueGrant",
+    //         recipient: "Bill and Melinda Gates Foundation",
+    //         ethGrant: "1 ETH",
+    //         voteBegins: "November 17, 2023",
+    //         voteEnds: "January 17, 2023",
+    //         newETHGrant: "",
+    //         votesFor: 310,
+    //         votesAgainst: 12,
+    //         memberVoteCount: 4,
+    //         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis tortor sit amet enim rhoncus, a aliquet nibh rutrum."
+    //     }
 
-    ]);
+    // ]);
 
     // End temp state or other variables
 
 
-    // const timeConversion = (timeStampBigNumber) => {
-    //     const timeStampInt = timeStampBigNumber.toNumber();
-    //     const timeStampNew = new Date(timeStampInt * 1000);
-    //     return moment(timeStampNew).format('MM-DD-YY, HH:mm:ss a');
-    // }
+    const timeConversion = (timeStampInt) => {
+
+        const timeStampNew = new Date(timeStampInt * 1000);
+        return moment(timeStampNew).format('MM-DD-YY, HH:mm:ss');
+    }
 
     // Will be used to send new Grant Proposal
     const sendNewGrant = async () => {
@@ -189,13 +189,13 @@ function Homepage(props) {
 
     //Will be used to send new Grant Amoun Change Proposal
     const sendAmountChange = async () => {
-        // const provider = new ethers.providers.Web3Provider(window.ethereum);
-        // const signer = provider.getSigner();
-        // const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
         console.log("New Proposed Amount: " + modifyGrantSizeAmount);
         console.log("New Amount Description: " + modifyGrantSizeDescription);
 
-        // const tryToSendAmountChange = await contract.addNewAmountChange(modifyGrantSizeAmount, modifyGrantSizeDescription);
+        const tryToSendAmountChange = await contract.submitNewAmountChange(modifyGrantSizeAmount, modifyGrantSizeDescription);
     }
 
     // Used to retrieve all of the proposals from the smart contract and display them in the dApp
@@ -223,11 +223,10 @@ function Homepage(props) {
         console.log("Entering for() loop: ...")
         const tempVar = starting - displayPerPage;
         for (var i = starting; i > starting - displayPerPage && i >= 0; i--) {
-
+            const propId = i;
             // const currentCard = fakeCardsArray[i];
             const currentCard = await contract.getProposal(i);
-            let currentCardTempArray;
-            logProposal(currentCard, i);
+            logProposal(currentCard, propId);
             for (var j = 0; j < currentCard.length; j++) {
                 if (j == 0 || j == 1 || j == 2 || j == 3 || j == 4 || j == 8 || j == 9) {
                     console.log("Index: " + j + ": " + currentCard[j].toNumber());
@@ -237,11 +236,8 @@ function Homepage(props) {
                     //currentCardTempArray[i] = currentCard[i];
                 }
             }
-            console.log("Current Whole Card Object: " + JSON.stringify(currentCard));
-            console.log("Current Card i = " + i + ": " + currentCard.propState);
-            setAllCards(prevAllCards => [...prevAllCards, formatProposal(currentCard)]);
-            console.log("All Cards: " + allCards[1].propId);
-            //console.log("allCards.length: " + allCards.length);
+            setAllCards(prevAllCards => [...prevAllCards, formatProposal(currentCard, propId)]);
+
 
 
         }
@@ -252,8 +248,8 @@ function Homepage(props) {
     const logProposal = (proposal, proposalId) => {
         console.log(
             "propId: " + proposalId + "\n",
-            "voteBegins: " + proposal[0].toNumber() + "\n",
-            "voteEnds: " + proposal[1].toNumber() + "\n",
+            "voteBegins: " + timeConversion(proposal[0].toNumber()) + "\n",
+            "voteEnds: " + timeConversion(proposal[1].toNumber()) + "\n",
             "votesFor: " + proposal[2].toNumber() + "\n",
             "votesAgainst: " + proposal[3].toNumber() + "\n",
             "memberVoteCount: " + proposal[4].toNumber() + "\n",
@@ -270,8 +266,8 @@ function Homepage(props) {
 
         return ({
             propId: proposalId,
-            voteBegins: proposal[0].toNumber(),
-            voteEnds: proposal[1].toNumber(),
+            voteBegins: timeConversion(proposal[0].toNumber()),
+            voteEnds: timeConversion(proposal[1].toNumber()),
             votesFor: proposal[2].toNumber(),
             votesAgainst: proposal[3].toNumber(),
             memberVoteCount: proposal[4].toNumber(),
@@ -306,13 +302,8 @@ function Homepage(props) {
     // Casts For vote 
     const castVoteFor = async (proposalId) => {
 
-        // console.log("Voted for Proposal " + proposalId + "!");
-        // fakeCardsArray[proposalId - 1].votesFor += 1;
-        // console.log("Votes For: " + fakeCardsArray[proposalId - 1].votesFor)
-        // getCards();
-        console.log("Vote For PropID: " + proposalId);
+
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts");
         const signer = provider.getSigner();
         const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
         contract.voteFor(proposalId);
@@ -320,12 +311,9 @@ function Homepage(props) {
 
     // Casts Against Vote
     const castVoteAgainst = async (proposalId) => {
-        // console.log("Voted against Proposal " + proposalId + "!");
-        // fakeCardsArray[proposalId - 1].votesAgainst += 1;
-        // console.log("Votes against: " + fakeCardsArray[proposalId - 1].votesAgainst);
+
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts");
         const signer = provider.getSigner();
         const contract = new ethers.Contract("0xB1d55619Daf08EA2189d1af0b3Cb9C3284EfBb6f", ABI, signer);
         contract.voteAgainst(proposalId);
@@ -336,8 +324,8 @@ function Homepage(props) {
     // Executes a proposal
     const executeProposal = async (proposalId) => {
         console.log("Executing Proposal " + proposalId + "!");
-        fakeCardsArray[proposalId - 1].propState = "Expired";
-        getCards();
+        // fakeCardsArray[proposalId].propState = "Expired";
+        // getCards();
         // const provider = new ethers.providers.Web3Provider(window.ethereum);
         // await provider.send("eth_requestAccounts");
         // const signer = provider.getSigner();
@@ -386,7 +374,7 @@ function Homepage(props) {
                                             : item.propState == "Defeated" ? "Defeated"
                                                 : item.propState == "Expired" ? "Expired"
                                                     : "Queued";
-
+                            { console.log("AllCards Map propId: " + item.propId) }
                             // return() for the .map function
                             return (
                                 // Calls ActiveCard component for active proposals
@@ -410,8 +398,8 @@ function Homepage(props) {
                                     :
                                     // Calls PendingCard component for pending proposals
                                     cardType == "Pending" ?
-                                        <PendingCard key={item.id}
-                                            id={item.id}
+                                        <PendingCard key={item.propId}
+                                            id={item.propId}
                                             propState={item.propState}
                                             propType={item.propType}
                                             recipient={item.recipient}
@@ -425,8 +413,8 @@ function Homepage(props) {
                                         :
                                         // Calls QueuedCard component for queued proposals
                                         cardType == "Queued" ?
-                                            <QueuedCard key={item.id}
-                                                id={item.id}
+                                            <QueuedCard key={item.propId}
+                                                id={item.propId}
                                                 propState={item.propState}
                                                 propType={item.propType}
                                                 recipient={item.recipient}
@@ -441,8 +429,8 @@ function Homepage(props) {
                                             :
                                             // Calls SDECard (SuccessfulDefeatedExpired) component for defeated proposals
                                             cardType == "Defeated" ?
-                                                <SDECard key={item.id}
-                                                    id={item.id}
+                                                <SDECard key={item.propId}
+                                                    id={item.propId}
                                                     propState={item.propState}
                                                     propType={item.propType}
                                                     recipient={item.recipient}
@@ -457,8 +445,8 @@ function Homepage(props) {
                                                 :
                                                 // Calls SDECard (SuccessfulDefeatedExpired) component for expired proposals
                                                 cardType == "expired" ?
-                                                    <SDECard key={item.id}
-                                                        id={item.id}
+                                                    <SDECard key={item.propId}
+                                                        id={item.propId}
                                                         propState={item.propState}
                                                         propType={item.propType}
                                                         recipient={item.recipient}
@@ -472,8 +460,8 @@ function Homepage(props) {
                                                     />
                                                     :
                                                     // Calls SDECard (SuccessfulDefeatedExpired) component for successful proposals
-                                                    <SDECard key={item.id}
-                                                        id={item.id}
+                                                    <SDECard key={item.propId}
+                                                        id={item.propId}
                                                         propState={item.propState}
                                                         propType={item.propType}
                                                         recipient={item.recipient}
