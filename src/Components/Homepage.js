@@ -360,8 +360,7 @@ function Homepage(props) {
                      */}
                     <button key="Back-Button" className="header-cta"><a onClick={() => noMoreCards ? null : setPagination((old) => old + 1)} href="#" >Older</a></button>
                     Available DAO Funds: {availableETH} ETH
-                    <button key="Forward-Button" className="header-cta"><a onClick={() => pagination > 0 ? setPagination((old) => old - 1) : null} href="#" >Newer
-                    </a></button>
+                    <button key="Forward-Button" className="header-cta"><a onClick={() => pagination > 0 ? setPagination((old) => old - 1) : null} href="#" >Newer</a></button>
                     <div className="cardPresentation">
 
                         {/* Begin mapping allCards to display cards on dApp */}
