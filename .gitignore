@@ -17,6 +17,8 @@
 .env.development.local
 .env.test.local
 .env.production.local
+/Components/PendingProp2.css
+/Components/PendingProp2.js
 
 npm-debug.log*
 yarn-debug.log*
